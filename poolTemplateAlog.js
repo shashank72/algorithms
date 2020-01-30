@@ -45,7 +45,6 @@ const checkDuplicate = (teamList, team) => {
 };
 
 const assignRefere = (teamCreteria, n) => {
-  console.log(teamCreteria);
   let temp = [...Array(n).keys()].map(x => ++x);
   let remainingTeams;
   for (let i = 0; i < teamCreteria.length; i++) {
@@ -66,8 +65,9 @@ const assignRefere = (teamCreteria, n) => {
       );
     }
   }
-  console.log("After adding refere");
+  //console.log("After adding refere");
   console.log(teamCreteria);
+  return teamCreteria;
 };
 
 const getRemaingItems = (arr1, arr2) => {
@@ -76,8 +76,38 @@ const getRemaingItems = (arr1, arr2) => {
 
 //const gen
 
-let TeamCount = 3;
+const poolManagement = noOfTeams => {
+  let teamCreteria = generatePoolTemplateAlog(TeamCount);
+  console.log(assignRefere(teamCreteria, TeamCount));
+};
 
-let teamCreteria = generatePoolTemplateAlog(TeamCount);
+const TeamScheduler = TeamsList => {
+  if (TeamsList.length == 0) {
+    console.log("there are no teams");
+  } else {
+    let teamCreteria = generatePoolTemplateAlog(TeamsList.length);
+    assigingTeams(TeamsList, assignRefere(teamCreteria, TeamsList.length));
+  }
+};
 
-assignRefere(teamCreteria, TeamCount);
+const assigingTeams = (TeamsList, TeamCreteriaWithRef) => {
+  //console.log(TeamsList);
+  let finalTeams = [];
+  TeamCreteriaWithRef.forEach(match => {
+    let Match = {};
+    Match["match"] = `${TeamsList[match[0] - 1]} , ${TeamsList[match[1] - 1]}`;
+    Match["ref"] = TeamsList[match[2] - 1];
+    finalTeams.push(Match);
+  });
+  console.log(finalTeams);
+};
+
+let Teams = [
+  "Dalhausser/Lucena",
+  " Paulis/Satterfield",
+  " Rosener/Cervantes",
+  " Hiehle/Semo",
+  " Deuchar/Haine"
+];
+
+TeamScheduler(Teams);
