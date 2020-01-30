@@ -16,11 +16,14 @@ const generatePoolTemplateAlog = n => {
       //console.log(temp);
       if (temp[i] !== "d" && temp[n - 1 - i] !== "d") {
         if (teamList.length != 0) {
-          if (
-            !teamList[teamList.length - 1].includes(temp[i]) &&
-            !teamList[teamList.length - 1].includes(temp[n - 1 - i])
-          ) {
-            if (!checkDuplicate(teamList, [temp[i], temp[n - 1 - i]]))
+          if (n < 5) {
+            teamList.push([temp[i], temp[n - 1 - i]]);
+          } else {
+            if (
+              !teamList[teamList.length - 1].includes(temp[i]) &&
+              !teamList[teamList.length - 1].includes(temp[n - 1 - i]) &&
+              !checkDuplicate(teamList, [temp[i], temp[n - 1 - i]])
+            )
               teamList.push([temp[i], temp[n - 1 - i]]);
           }
         } else {
@@ -46,7 +49,7 @@ const assignRefere = (teamCreteria, n) => {
   let temp = [...Array(n).keys()].map(x => ++x);
   let remainingTeams;
   for (let i = 0; i < teamCreteria.length; i++) {
-    if (i == teamCreteria.length - 1) {
+    if (i == teamCreteria.length - 1 || n < 5) {
       remainingTeams = getRemaingItems(temp, [...teamCreteria[i]]);
       //console.log(remainingTeams);
     } else {
@@ -73,6 +76,8 @@ const getRemaingItems = (arr1, arr2) => {
 
 //const gen
 
-let teamCreteria = generatePoolTemplateAlog(5);
+let TeamCount = 3;
 
-assignRefere(teamCreteria, 5);
+let teamCreteria = generatePoolTemplateAlog(TeamCount);
+
+assignRefere(teamCreteria, TeamCount);
