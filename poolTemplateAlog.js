@@ -77,8 +77,8 @@ const getRemaingItems = (arr1, arr2) => {
 //const gen
 
 const poolManagement = noOfTeams => {
-  let teamCreteria = generatePoolTemplateAlog(TeamCount);
-  console.log(assignRefere(teamCreteria, TeamCount));
+  let teamCreteria = generatePoolTemplateAlog(noOfTeams);
+  console.log(assignRefere(teamCreteria, noOfTeams));
 };
 
 const TeamScheduler = TeamsList => {
@@ -86,8 +86,21 @@ const TeamScheduler = TeamsList => {
     console.log("there are no teams");
   } else {
     let teamCreteria = generatePoolTemplateAlog(TeamsList.length);
-    assigingTeams(TeamsList, assignRefere(teamCreteria, TeamsList.length));
+    assigingTeamsv2(TeamsList, assignRefere(teamCreteria, TeamsList.length));
   }
+};
+
+const assigingTeamsv2 = (TeamsList, TeamCreteriaWithRef) => {
+  //console.log(TeamsList);
+  let finalTeams = [];
+  TeamCreteriaWithRef.forEach(match => {
+    let Match = [];
+    match.forEach(value => {
+      Match.push(TeamsList[value - 1]);
+    });
+    finalTeams.push(Match);
+  });
+  console.log(finalTeams);
 };
 
 const assigingTeams = (TeamsList, TeamCreteriaWithRef) => {
@@ -111,3 +124,5 @@ let Teams = [
 ];
 
 TeamScheduler(Teams);
+
+//poolManagement(5);
